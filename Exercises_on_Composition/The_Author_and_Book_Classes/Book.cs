@@ -9,19 +9,19 @@ namespace The_Author_and_Book_Classes
     public class Book
     {
         private string Name;
-        private Author Author;
+        private Author[] Authors;
         private double Price;
         private int Qty =0;
 
-        public Book(string name, Author author, double price)
+        public Book(string name, Author [] authors, double price)
         {
             this.Name = name;
             this.Price = price;
-            this.Author = author;
+            this.Authors = authors;
         }
 
-        public Book(string name, Author author, double price, int qty)
-            :this(name,author,price)
+        public Book(string name, Author[]authors, double price, int qty)
+            :this(name,authors,price)
         {
             this.Qty = qty;
         }
@@ -30,9 +30,9 @@ namespace The_Author_and_Book_Classes
         {
             return this.Name;
         }
-        public Author getAuthor()
+        public Author[] getAuthors()
         {
-            return this.Author;
+            return this.Authors;
         }
 
         public double getPrice()
@@ -57,22 +57,34 @@ namespace The_Author_and_Book_Classes
 
         public override string ToString()
         {
-            return String.Format("Book [ name = {0}, Author [{1}], price = {2}, qty = {3} ", Name, Author, Price, Qty);
+            string[] strAuthors = new string[this.Authors.Length];
+            for (int i = 0; i < this.Authors.Length; i++)
+            {
+                strAuthors[i] = this.Authors[i].ToString();
+            }
+            return String.Format("Book [ name = {0}, Authors = {{{1}}}, price = {2}, qty = {3} ", Name, String.Join(",", strAuthors), Price, Qty);
         }
 
-        public string getAuthorName()
+
+
+        public string getAuthorNames()
         {
-            return this.Author.getName();
+            string[] strNames = new string[this.Authors.Length];
+            for (int i = 0; i < this.Authors.Length; i++)
+            {
+                strNames[i] = this.Authors[i].getName();
+            }
+            return String.Join(",", strNames);
         }
 
-        public string getAuthorEmail()
-        {
-            return this.Author.getEmail();
-        }
+        //public string getAuthorEmail()
+        //{
+        //    return this.Authors.getEmail();
+        //}
 
-        public string getAuthorGender()
-        {
-            return this.Author.getGender();
-        }
+        //public string getAuthorGender()
+        //{
+        //    return this.Authors.getGender();
+        //}
     }
 }
